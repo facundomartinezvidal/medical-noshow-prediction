@@ -22,13 +22,13 @@
 
 ## 4. noshow-modeling
 
-- [ ] 4.1 `preprocess.py`: `ColumnTransformer` reutilizable — One-Hot (`OneHotEncoder(handle_unknown="ignore")`) de categóricas nominales (género, barrio, grupo etario); sin escalado (DT/RF no lo requieren)
-- [ ] 4.2 `train.py`: hold-out `train_test_split(test_size=0.2, random_state=42, stratify=y)`; entrenar `DecisionTreeClassifier(max_depth, min_samples_leaf, random_state=42)` **podado** y `RandomForestClassifier(n_estimators, max_features, max_depth, random_state=42)` sin podar
-- [ ] 4.3 Validación cruzada `StratifiedKFold(n_splits=5, shuffle=True, random_state=42)` sobre train (`cross_val_score`); comparar DT vs RF por media±std de F1/ROC-AUC; elegir modelo final con CV
-- [ ] 4.4 `evaluate.py`: `classification_report` + `ConfusionMatrixDisplay` + `roc_auc_score` (y curva ROC) sobre el hold-out; discutir FN vs FP (costo clínico); ajuste de umbral orientado a recall; (opcional) PR-AUC
-- [ ] 4.5 Interpretabilidad: `plot_tree`/`export_text` del árbol podado (mostrar train vs test = overfitting) y `feature_importances_` del RF en barras horizontales ordenadas
-- [ ] 4.6 Persistir modelo final (pipeline + clasificador) en `models/*.joblib` + metadata de métricas
-- [ ] 4.7 `predict.py`: cargar modelo, scorear turno individual y lote, devolver `predict_proba` (probabilidad promedio del bosque)
+- [x] 4.1 `preprocess.py`: `ColumnTransformer` reutilizable — One-Hot (`OneHotEncoder(handle_unknown="ignore")`) de categóricas nominales (género, barrio, grupo etario); sin escalado (DT/RF no lo requieren)
+- [x] 4.2 `train.py`: hold-out `train_test_split(test_size=0.2, random_state=42, stratify=y)`; entrenar `DecisionTreeClassifier(max_depth, min_samples_leaf, random_state=42)` **podado** y `RandomForestClassifier(n_estimators, max_features, max_depth, random_state=42)` sin podar
+- [x] 4.3 Validación cruzada `StratifiedKFold(n_splits=5, shuffle=True, random_state=42)` sobre train (`cross_val_score`); comparar DT vs RF por media±std de F1/ROC-AUC; elegir modelo final con CV
+- [x] 4.4 `evaluate.py`: `classification_report` + `ConfusionMatrixDisplay` + `roc_auc_score` (y curva ROC) sobre el hold-out; discutir FN vs FP (costo clínico); ajuste de umbral orientado a recall; (opcional) PR-AUC
+- [x] 4.5 Interpretabilidad: `plot_tree`/`export_text` del árbol podado (mostrar train vs test = overfitting) y `feature_importances_` del RF en barras horizontales ordenadas
+- [x] 4.6 Persistir modelo final (pipeline + clasificador) en `models/*.joblib` + metadata de métricas
+- [x] 4.7 `predict.py`: cargar modelo, scorear turno individual y lote, devolver `predict_proba` (probabilidad promedio del bosque)
 
 ## 5. interactive-app (Streamlit)
 
