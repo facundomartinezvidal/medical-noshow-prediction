@@ -1,0 +1,30 @@
+# Datos crudos grandes (no versionar; documentar cómo obtenerlos)
+no-show-dataset.csv
+weather-dataset.csv
+data/raw/
+data/external/*.csv
+!data/external/weather_daily_a612.csv
+
+# Datos procesados generados
+data/processed/
+
+# Artefactos de modelo
+models/*.joblib
+*.pkl
+
+# Entorno Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# OpenSpec generó comandos/skills opsx (sk8 los envuelve; no usamos su UI)
+.claude/commands/opsx/
+.claude/skills/openspec-*/
+
+# Sistema
+.DS_Store
+
+# Reportes generados (opcional: versionar figuras clave a mano)
+reports/figures/*.png
