@@ -36,6 +36,10 @@ El sistema SHALL derivar las características predictoras a partir de las column
 - **WHEN** se procesa un turno con `ScheduledDay` y `AppointmentDay`
 - **THEN** `lead_time_days` SHALL ser la diferencia en días entre la fecha del turno y la del agendamiento
 
+#### Scenario: Discretización de la edad en grupos etarios
+- **WHEN** se procesa la variable `Age`
+- **THEN** el sistema SHALL derivar grupos etarios (binning, por ejemplo menor / adulto / adulto mayor) además de conservar la edad, conforme a la técnica de discretización enseñada en la cátedra
+
 #### Scenario: Dataset procesado reproducible
 - **WHEN** se ejecuta el pipeline de preparación sobre el dataset crudo
 - **THEN** el sistema SHALL producir un dataset procesado determinístico, reutilizable tanto por el entrenamiento como por la aplicación

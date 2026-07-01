@@ -22,12 +22,13 @@
 
 ## 4. noshow-modeling
 
-- [ ] 4.1 `preprocess.py`: `ColumnTransformer` (imputación, OHE de categóricas, escalado de numéricas) reutilizable
-- [ ] 4.2 `train.py`: split estratificado train/test; entrenar DecisionTree y RandomForest con `class_weight="balanced"`
-- [ ] 4.3 `evaluate.py`: precision, recall, F1, ROC-AUC, PR-AUC, matriz de confusión; comparativa DT vs RF; importancia de variables
-- [ ] 4.4 Ajuste de umbral orientado a recall de la clase "falta"
-- [ ] 4.5 Persistir modelo final (pipeline + clasificador) en `models/*.joblib` + metadata de métricas
-- [ ] 4.6 `predict.py`: cargar modelo, scorear turno individual y lote, devolver `predict_proba`
+- [ ] 4.1 `preprocess.py`: `ColumnTransformer` reutilizable — One-Hot (`OneHotEncoder(handle_unknown="ignore")`) de categóricas nominales (género, barrio, grupo etario); sin escalado (DT/RF no lo requieren)
+- [ ] 4.2 `train.py`: hold-out `train_test_split(test_size=0.2, random_state=42, stratify=y)`; entrenar `DecisionTreeClassifier(max_depth, min_samples_leaf, random_state=42)` **podado** y `RandomForestClassifier(n_estimators, max_features, max_depth, random_state=42)` sin podar
+- [ ] 4.3 Validación cruzada `StratifiedKFold(n_splits=5, shuffle=True, random_state=42)` sobre train (`cross_val_score`); comparar DT vs RF por media±std de F1/ROC-AUC; elegir modelo final con CV
+- [ ] 4.4 `evaluate.py`: `classification_report` + `ConfusionMatrixDisplay` + `roc_auc_score` (y curva ROC) sobre el hold-out; discutir FN vs FP (costo clínico); ajuste de umbral orientado a recall; (opcional) PR-AUC
+- [ ] 4.5 Interpretabilidad: `plot_tree`/`export_text` del árbol podado (mostrar train vs test = overfitting) y `feature_importances_` del RF en barras horizontales ordenadas
+- [ ] 4.6 Persistir modelo final (pipeline + clasificador) en `models/*.joblib` + metadata de métricas
+- [ ] 4.7 `predict.py`: cargar modelo, scorear turno individual y lote, devolver `predict_proba` (probabilidad promedio del bosque)
 
 ## 5. interactive-app (Streamlit)
 
@@ -38,10 +39,11 @@
 
 ## 6. Notebook, visualización y docs
 
-- [ ] 6.1 `notebooks/01_eda_modeling.ipynb`: EDA (lead time vs no-show, efecto SMS con caveat causal, edad, día de semana, clima) + storytelling en español
-- [ ] 6.2 Exportar figuras clave a `reports/figures/` para la presentación
-- [ ] 6.3 `docs/architecture.md`: diagrama de tubería en Mermaid
-- [ ] 6.4 `README.md`: instalación, dónde poner los datos, cómo entrenar y cómo correr la app; sección de limitaciones (datos 2016, una ciudad, pre-COVID, concept drift)
+- [ ] 6.1 `notebooks/01_eda_modeling.ipynb`: estructurar según **CRISP-DM**; EDA estilo cátedra (`.head/.shape/.dtypes/.isnull().sum()/.describe()`, barra del target comentando el balance, `boxplot`/`histplot` por clase, matriz de correlación con heatmap); insights (lead time vs no-show, efecto SMS con caveat causal, edad, día de semana, clima)
+- [ ] 6.2 Estilo cátedra: `df` con `target`+`target_name` vía `.map()`; nombres `X, y, X_train...`; interpretaciones y conclusiones en celdas Markdown; storytelling en español
+- [ ] 6.3 Exportar figuras clave a `reports/figures/` para la presentación
+- [ ] 6.4 `docs/architecture.md`: diagrama de tubería en Mermaid
+- [ ] 6.5 `README.md`: instalación, dónde poner los datos, cómo entrenar y cómo correr la app; sección de limitaciones (datos 2016, una ciudad, pre-COVID, concept drift)
 
 ## 7. Verificación end-to-end
 
