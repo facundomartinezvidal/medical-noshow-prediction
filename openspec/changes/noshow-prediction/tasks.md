@@ -1,24 +1,24 @@
 ## 1. Entorno y scaffolding
 
-- [ ] 1.1 Crear estructura de carpetas: `data/{raw,external,processed}/`, `src/noshow/`, `app/`, `notebooks/`, `models/`, `reports/figures/`, `docs/`
-- [ ] 1.2 Crear `.gitignore` (datos crudos grandes `*.csv` de raw, `.venv/`, `models/*.joblib`, `__pycache__/`, `.DS_Store`, artefactos openspec `opsx` si corresponde)
-- [ ] 1.3 Crear `requirements.txt` (`pandas`, `scikit-learn`, `streamlit`, `matplotlib`, `seaborn`, `joblib`, `jupyter`)
-- [ ] 1.4 Crear venv e instalar; si faltan wheels para Python 3.14, documentar fallback venv 3.12 en el README
-- [ ] 1.5 `src/noshow/config.py` con paths, esquema esperado y constantes de negocio (umbrales de riesgo, costo hora-profesional)
+- [x] 1.1 Crear estructura de carpetas: `data/{raw,external,processed}/`, `src/noshow/`, `app/`, `notebooks/`, `models/`, `reports/figures/`, `docs/`
+- [x] 1.2 Crear `.gitignore` (datos crudos grandes `*.csv` de raw, `.venv/`, `models/*.joblib`, `__pycache__/`, `.DS_Store`, artefactos openspec `opsx` si corresponde)
+- [x] 1.3 Crear `requirements.txt` (`pandas`, `scikit-learn`, `streamlit`, `matplotlib`, `seaborn`, `joblib`, `jupyter`)
+- [x] 1.4 Crear venv e instalar; si faltan wheels para Python 3.14, documentar fallback venv 3.12 en el README
+- [x] 1.5 `src/noshow/config.py` con paths, esquema esperado y constantes de negocio (umbrales de riesgo, costo hora-profesional)
 
 ## 2. data-pipeline
 
-- [ ] 2.1 `data_load.py`: cargar CSV de turnos, validar 14 columnas, parsear fechas, normalizar target `No-show`→`no_show` (1/0)
-- [ ] 2.2 Limpieza: edades negativas y lead times negativos, con conteo de registros afectados
-- [ ] 2.3 `features.py`: `lead_time_days`, `appointment_dow`, `appointment_month`, `same_day`, bins de edad, comorbilidades, agrupado de barrios raros
-- [ ] 2.4 Generar y cachear el dataset procesado en `data/processed/` de forma determinística
+- [x] 2.1 `data_load.py`: cargar CSV de turnos, validar 14 columnas, parsear fechas, normalizar target `No-show`→`no_show` (1/0)
+- [x] 2.2 Limpieza: edades negativas y lead times negativos, con conteo de registros afectados
+- [x] 2.3 `features.py`: `lead_time_days`, `appointment_dow`, `appointment_month`, `same_day`, bins de edad, comorbilidades, agrupado de barrios raros
+- [x] 2.4 Generar y cachear el dataset procesado en `data/processed/` de forma determinística
 
 ## 3. weather-integration
 
-- [ ] 3.1 `weather.py`: leer `weather-dataset.csv` por chunks filtrando `ESTACAO=="A612"` (sin cargar 437 MB de golpe)
-- [ ] 3.2 Mapear columnas PT→limpio; agregar horario→diario (precip suma, temp máx/mín/media, humedad media, `is_rainy`)
-- [ ] 3.3 Cachear el clima diario chico en `data/external/`
-- [ ] 3.4 Join del clima con los turnos por fecha de `AppointmentDay`, con manejo explícito de fechas sin clima
+- [x] 3.1 `weather.py`: leer `weather-dataset.csv` por chunks filtrando `ESTACAO=="A612"` (sin cargar 437 MB de golpe)
+- [x] 3.2 Mapear columnas PT→limpio; agregar horario→diario (precip suma, temp máx/mín/media, humedad media, `is_rainy`)
+- [x] 3.3 Cachear el clima diario chico en `data/external/`
+- [x] 3.4 Join del clima con los turnos por fecha de `AppointmentDay`, con manejo explícito de fechas sin clima
 
 ## 4. noshow-modeling
 
