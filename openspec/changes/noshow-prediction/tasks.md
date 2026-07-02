@@ -47,7 +47,7 @@
 
 ## 7. Verificación end-to-end
 
-- [ ] 7.1 `python -m noshow.data_load` valida esquema sin error
-- [ ] 7.2 `python -m noshow.train` produce `models/*.joblib` + reporte de métricas (AUC/F1)
-- [ ] 7.3 `streamlit run app/streamlit_app.py` levanta y devuelve P(no-show) + acción para un turno de prueba
-- [ ] 7.4 El notebook corre de punta a punta y exporta figuras
+- [x] 7.1 `python -m noshow.data_load` valida esquema sin error
+- [x] 7.2 `python -m noshow.train` produce `models/*.joblib` + reporte de métricas (AUC/F1)
+- [x] 7.3 `streamlit run app/streamlit_app.py` levanta y devuelve P(no-show) + acción para un turno de prueba
+- [x] 7.4 El notebook corre de punta a punta y exporta figuras

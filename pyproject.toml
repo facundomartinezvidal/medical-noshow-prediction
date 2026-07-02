@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "noshow"
+version = "0.1.0"
+description = "Predicción de no-show de turnos médicos (TPO Ciencia de Datos, UADE Grupo 7)"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["src"]

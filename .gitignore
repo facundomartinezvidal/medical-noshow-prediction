@@ -28,3 +28,7 @@ __pycache__/
 
 # Reportes generados (opcional: versionar figuras clave a mano)
 reports/figures/*.png
+
+# Paquete editable
+*.egg-info/
+src/*.egg-info/

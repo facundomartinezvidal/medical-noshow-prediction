@@ -64,6 +64,8 @@ problemas al instalar `requirements.txt`, usar 3.13 (o, como segundo fallback, 3
 python3.13 -m venv .venv
 source .venv/bin/activate      # en Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+pip install -e .               # instala el paquete `noshow` (editable) para que
+                               # `python -m noshow.*` y la app lo encuentren desde la raíz
 ```
 
 ### 2. Datos
