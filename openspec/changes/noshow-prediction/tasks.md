@@ -32,18 +32,18 @@
 
 ## 5. interactive-app (Streamlit)
 
-- [ ] 5.1 `app/streamlit_app.py` modo turno individual: inputs → P(no-show) con gauge/banda de riesgo, reutilizando el pipeline persistido
-- [ ] 5.2 Mapear probabilidad → acción recomendada por bandas (bajo/medio/alto)
-- [ ] 5.3 Modo lote: subir CSV de agenda → tabla rankeada por riesgo + acción por turno
-- [ ] 5.4 Estimación de valor de negocio (horas-profesional recuperadas / sobreturnos sugeridos)
+- [x] 5.1 `app/streamlit_app.py` modo turno individual: inputs → P(no-show) con gauge/banda de riesgo, reutilizando el pipeline persistido
+- [x] 5.2 Mapear probabilidad → acción recomendada por bandas (bajo/medio/alto)
+- [x] 5.3 Modo lote: subir CSV de agenda → tabla rankeada por riesgo + acción por turno
+- [x] 5.4 Estimación de valor de negocio (horas-profesional recuperadas / sobreturnos sugeridos)
 
 ## 6. Notebook, visualización y docs
 
-- [ ] 6.1 `notebooks/01_eda_modeling.ipynb`: estructurar según **CRISP-DM**; EDA estilo cátedra (`.head/.shape/.dtypes/.isnull().sum()/.describe()`, barra del target comentando el balance, `boxplot`/`histplot` por clase, matriz de correlación con heatmap); insights (lead time vs no-show, efecto SMS con caveat causal, edad, día de semana, clima)
-- [ ] 6.2 Estilo cátedra: `df` con `target`+`target_name` vía `.map()`; nombres `X, y, X_train...`; interpretaciones y conclusiones en celdas Markdown; storytelling en español
-- [ ] 6.3 Exportar figuras clave a `reports/figures/` para la presentación
-- [ ] 6.4 `docs/architecture.md`: diagrama de tubería en Mermaid
-- [ ] 6.5 `README.md`: instalación, dónde poner los datos, cómo entrenar y cómo correr la app; sección de limitaciones (datos 2016, una ciudad, pre-COVID, concept drift)
+- [x] 6.1 `notebooks/01_eda_modeling.ipynb`: estructurar según **CRISP-DM**; EDA estilo cátedra (`.head/.shape/.dtypes/.isnull().sum()/.describe()`, barra del target comentando el balance, `boxplot`/`histplot` por clase, matriz de correlación con heatmap); insights (lead time vs no-show, efecto SMS con caveat causal, edad, día de semana, clima)
+- [x] 6.2 Estilo cátedra: `df` con `target`+`target_name` vía `.map()`; nombres `X, y, X_train...`; interpretaciones y conclusiones en celdas Markdown; storytelling en español
+- [x] 6.3 Exportar figuras clave a `reports/figures/` para la presentación
+- [x] 6.4 `docs/architecture.md`: diagrama de tubería en Mermaid
+- [x] 6.5 `README.md`: instalación, dónde poner los datos, cómo entrenar y cómo correr la app; sección de limitaciones (datos 2016, una ciudad, pre-COVID, concept drift)
 
 ## 7. Verificación end-to-end
 
