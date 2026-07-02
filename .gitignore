@@ -1,15 +1,16 @@
-# Datos crudos grandes (no versionar; documentar cómo obtenerlos)
-no-show-dataset.csv
+# Clima crudo gigante: NO se versiona (437 MB, supera el límite de GitHub y no es
+# necesario — el clima diario derivado data/external/weather_daily_a612.csv sí está).
 weather-dataset.csv
-data/raw/
+data/raw/weather-dataset.csv
+
+# El dataset de turnos (10,7 MB) y el modelo (30 MB) SÍ se versionan para clone-and-run.
+# Solo hay que ignorar el clima crudo (arriba) y los intermedios generados.
 data/external/*.csv
 !data/external/weather_daily_a612.csv
 
-# Datos procesados generados
+# Datos procesados generados (se regeneran)
 data/processed/
 
-# Artefactos de modelo
-models/*.joblib
 *.pkl
 
 # Entorno Python
