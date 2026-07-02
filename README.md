@@ -52,6 +52,22 @@ prioricen donde más impacto tienen, en vez de aplicarse de forma uniforme.
 
 ## Setup
 
+### Inicio rápido (script)
+
+Si ya tenés los datasets en `data/raw/` (ver "Datos" abajo), el script `setup.sh`
+hace los pasos 2 a 5 de una: crea el venv, instala dependencias, entrena el modelo
+y levanta la app.
+
+```bash
+./setup.sh              # venv + install + train + levanta Streamlit
+./setup.sh --no-app     # solo venv + install + train (no lanza la app)
+FORCE_TRAIN=1 ./setup.sh   # reentrena aunque ya exista models/model.joblib
+```
+
+Requiere `data/raw/no-show-dataset.csv` presente. El clima usa el caché versionado
+`data/external/weather_daily_a612.csv` (o `data/raw/weather-dataset.csv` si hay que
+regenerarlo). Los pasos manuales equivalentes se detallan abajo.
+
 ### 1. Entorno virtual
 
 Se recomienda **Python 3.13**. Al momento de escribir este README, Python 3.14 es
