@@ -1,13 +1,16 @@
 """Aplicación funcional interactiva de predicción de no-show de turnos
 médicos (TPO Ciencia de Datos, UADE, Grupo 7).
 
-Dos modos:
+Tres modos:
 
 - **Turno individual**: ingresa los atributos de un turno y muestra la
   probabilidad de no-show y la acción recomendada.
 - **Agenda del día (lote)**: sube un CSV con varios turnos y devuelve una
   tabla rankeada por riesgo, con la acción sugerida y una estimación de
   valor de negocio.
+- **Dashboard de presentación**: storytelling del EDA, técnica de minería
+  (modelo, umbral de decisión interactivo) y conclusión, para la
+  exposición de la cátedra (ver `app/dashboard.py`).
 
 Toda la lógica de transformación de datos se delega en `noshow.weather`,
 `noshow.features` y `noshow.predict` (el mismo pipeline que usó
@@ -37,7 +40,7 @@ import datetime as dt  # noqa: E402
 import pandas as pd  # noqa: E402
 import streamlit as st  # noqa: E402
 
-from app import logic  # noqa: E402
+from app import dashboard, logic  # noqa: E402
 from noshow import config  # noqa: E402
 from noshow.predict import DEFAULT_MODEL_PATH, load_model  # noqa: E402
 from noshow.weather import load_weather_daily  # noqa: E402
@@ -282,7 +285,8 @@ def main() -> None:
     weather_daily = get_weather_daily()
 
     modo = st.sidebar.radio(
-        "Modo", ["Turno individual", "Agenda del día (lote)"]
+        "Modo",
+        ["Turno individual", "Agenda del día (lote)", "Dashboard de presentación"],
     )
     st.sidebar.caption(
         f"Bandas de riesgo: bajo < {config.RISK_LOW:.0%} · medio "
@@ -292,8 +296,10 @@ def main() -> None:
 
     if modo == "Turno individual":
         render_single_appointment(model, weather_daily)
-    else:
+    elif modo == "Agenda del día (lote)":
         render_batch_mode(model, weather_daily)
+    else:
+        dashboard.render_dashboard(model)
 
 
 if __name__ == "__main__":

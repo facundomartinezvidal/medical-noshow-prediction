@@ -107,6 +107,14 @@ pip install -e .               # instala el paquete `noshow` (editable) para que
                                # `python -m noshow.*` y la app lo encuentren desde la raíz
 ```
 
+> **Windows:** si `pip install -r requirements.txt` falla con un `OSError` sobre una
+> ruta de `jupyterlab` inexistente, es el límite de rutas largas de Windows (el
+> proyecto vive en una carpeta con nombre largo, ej. `Desktop\tp ciencia de datos\...`).
+> Solución: crear el venv en una ruta corta fuera del repo (ej. `python3.13 -m venv
+> C:\venv-noshow`) y usar ese intérprete (`C:\venv-noshow\Scripts\python.exe`) para todo
+> lo de abajo, o habilitar rutas largas (`git config --system core.longpaths true` +
+> política de grupo de Windows).
+
 ### 2. Datos
 
 El repositorio **no versiona** los datasets crudos por su tamaño (10,7 MB y ~437 MB
@@ -171,9 +179,16 @@ exporta las figuras clave a `reports/figures/`.
 streamlit run app/streamlit_app.py
 ```
 
-Requiere que `models/model.joblib` exista (ver "Entrenar el modelo" arriba). Ofrece un
-modo de turno individual (inputs → probabilidad de no-show + acción recomendada) y un
-modo lote (subir un CSV de agenda → tabla rankeada por riesgo).
+Requiere que `models/model.joblib` exista (ver "Entrenar el modelo" arriba). Ofrece tres
+modos, elegibles desde el sidebar:
+
+- **Turno individual**: inputs → probabilidad de no-show + acción recomendada.
+- **Agenda del día (lote)**: subir un CSV de agenda → tabla rankeada por riesgo.
+- **Dashboard de presentación**: storytelling del EDA, técnica de minería (comparación
+  de modelos, importancia de variables, curva ROC) y un umbral de decisión interactivo
+  que recalcula precision/recall/F1 y la matriz de confusión en vivo — pensado para la
+  exposición de 15 minutos ante la Gerencia, sin depender del notebook ni de slides
+  estáticas (ver `app/dashboard.py`).
 
 ### Tests
 
