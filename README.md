@@ -22,6 +22,29 @@ acciones preventivas:
 de forma que los recursos limitados de la institución (llamados, sobreturnos) se
 prioricen donde más impacto tienen, en vez de aplicarse de forma uniforme.
 
+## Para compañeros (clone-and-run)
+
+El repo ya trae **todo lo necesario para correr**: el dataset de turnos, el clima diario
+y el modelo entrenado. Único prerrequisito: **Python 3.13** instalado.
+
+```bash
+git clone https://github.com/facundomartinezvidal/medical-noshow-prediction.git
+cd medical-noshow-prediction
+bash setup.sh
+```
+
+`setup.sh` crea el entorno, instala las dependencias, saltea el entrenamiento (el modelo
+ya viene versionado) y levanta la app. Cuando abra el navegador:
+
+> ⚠️ Si la app queda cargando ("skeleton"), abrila en **Chrome o Safari**, no en Dia u
+> otros navegadores con IA — su capa inyectada rompe el WebSocket de Streamlit.
+
+Notas:
+- Reentrenar desde cero: `FORCE_TRAIN=1 bash setup.sh`.
+- El clima crudo de INMET (`weather-dataset.csv`, 437 MB) **no está** en el repo (supera el
+  límite de GitHub y no hace falta: el clima diario derivado ya está versionado). Solo se
+  necesita si se borra `data/external/weather_daily_a612.csv` y se quiere regenerar.
+
 ## Estructura del repositorio
 
 ```
