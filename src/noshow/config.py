@@ -56,8 +56,29 @@ APPOINTMENTS_SCHEMA: list[str] = [
 # [0, RISK_LOW) -> bajo riesgo (sin acción especial)
 # [RISK_LOW, RISK_HIGH) -> riesgo medio (recordatorio dirigido)
 # [RISK_HIGH, 1] -> riesgo alto (recordatorio + sobreturno)
-RISK_LOW: float = 0.3
-RISK_HIGH: float = 0.6
+#
+# Recalibrados a partir de la distribución real de `predict_proba` del
+# Random Forest ganador (sin `class_weight`) sobre el dataset procesado
+# completo (110.521 turnos, tasa base de no-show ≈ 20,2 %). Esa
+# probabilidad sale comprimida (rango observado ≈ [0.01, 0.54]; p50≈0.23,
+# p90≈0.345): con los umbrales anteriores (0.3/0.6) el 74,7 % de los
+# turnos caía en "bajo" y la banda "alto" era INALCANZABLE (0.6 supera el
+# máximo observado), por lo que la acción agresiva (llamado + sobreturno)
+# nunca se disparaba y la app no separaba riesgo de verdad.
+#
+# - RISK_LOW = 0.28 (≈ percentil 66 de la distribución observada): deja
+#   ~34 % de los turnos con alguna acción (medio + alto), en línea con el
+#   objetivo de negocio de accionar sobre el tercio más riesgoso sin
+#   saturar de recordatorios a toda la agenda.
+# - RISK_HIGH = 0.345 (≈ percentil 90, el decil de mayor riesgo real que
+#   produce el modelo): así el ~10 % de turnos con score más alto recibe
+#   la acción agresiva, banda que antes nunca se activaba.
+#
+# Si se reentrena el modelo con datos, hiperparámetros o `class_weight`
+# distintos, la distribución de `predict_proba` puede desplazarse y estos
+# umbrales deberían recalcularse contra los nuevos percentiles.
+RISK_LOW: float = 0.28
+RISK_HIGH: float = 0.345
 
 # Costo estimado de una hora-profesional ociosa (ARS), usado para traducir
 # el no-show evitado en valor de negocio en la app.
