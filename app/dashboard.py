@@ -67,6 +67,22 @@ DOW_LABELS: list[str] = [
     "Sábado",
     "Domingo",
 ]
+CORR_COLUMNS: list[str] = [
+    "no_show",
+    "lead_time_days",
+    "Age",
+    "same_day",
+    "appointment_dow",
+    "appointment_month",
+    "Scholarship",
+    "comorbidity_count",
+    "has_comorbidity",
+    "SMS_received",
+    "precipitation_mm",
+    "temp_mean",
+    "humidity_mean",
+    "is_rainy",
+]
 
 
 @st.cache_data(show_spinner="Cargando dataset procesado (turnos + clima)...")
@@ -255,6 +271,55 @@ def render_eda(df: pd.DataFrame) -> None:
             "El clima aporta una señal débil frente al comportamiento del "
             "paciente: es un hallazgo honesto, no un fracaso del pipeline."
         )
+
+    corr = df[CORR_COLUMNS].corr()
+    corr_long = (
+        corr.reset_index(names="var1")
+        .melt(id_vars="var1", var_name="var2", value_name="corr")
+    )
+    heat = (
+        alt.Chart(corr_long)
+        .mark_rect()
+        .encode(
+            x=alt.X("var2:N", title="", sort=CORR_COLUMNS),
+            y=alt.Y("var1:N", title="", sort=CORR_COLUMNS),
+            color=alt.Color(
+                "corr:Q",
+                title="Correlación",
+                scale=alt.Scale(scheme="redblue", domain=[-1, 1]),
+            ),
+            tooltip=[
+                alt.Tooltip("var1:N", title="Variable 1"),
+                alt.Tooltip("var2:N", title="Variable 2"),
+                alt.Tooltip("corr:Q", title="Correlación", format=".2f"),
+            ],
+        )
+    )
+    text_corr = (
+        alt.Chart(corr_long)
+        .mark_text(fontSize=10)
+        .encode(
+            x=alt.X("var2:N", sort=CORR_COLUMNS),
+            y=alt.Y("var1:N", sort=CORR_COLUMNS),
+            text=alt.Text("corr:Q", format=".2f"),
+            color=alt.condition(
+                "abs(datum.corr) > 0.5", alt.value("white"), alt.value("#1f2430")
+            ),
+        )
+    )
+    st.altair_chart(
+        (heat + text_corr).properties(
+            height=460, title="Matriz de correlación (variables numéricas)"
+        ),
+        use_container_width=True,
+    )
+    st.caption(
+        "Ninguna variable numérica individual tiene correlación lineal fuerte con "
+        "`no_show` (todas por debajo de ~0,2 en valor absoluto); `lead_time_days` y "
+        "`same_day` son las que más se acercan. Justifica usar un modelo no lineal "
+        "basado en árboles (Decision Tree / Random Forest), capaz de capturar "
+        "interacciones entre variables que una correlación lineal par a par no ve."
+    )
 
     with st.expander("⚠️ Caveat causal: SMS_received y lead time"):
         sms_rate = df.groupby("SMS_received")["no_show"].mean().mul(100)
